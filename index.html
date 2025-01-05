@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Profile Management</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow-y: scroll;
+    }
+    h1, h2 {
+      text-align: center;
+    }
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(150, 171, 218, 0.1);
+      background-color: #e7acba;
+      border-radius: 10px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    input, select, button {
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #48abd5;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #347e79;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #f4f4f4;
+    }
+    .delete-button {
+      background-color: rgb(0, 0, 0);
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .profile-pic {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .profile-pic img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid #6e003b;
+    }
+    .profile-pic input {
+      margin-top: 10px;
+    }
+    footer {
+      text-align: center;
+      margin-top: 30px;
+      padding: 20px;
+      background-color: #333;
+      color: rgb(207, 207, 207);
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <br>
+  <h1>Student Profile Management</h1>
+ <br>
+  <div class="container">
+
+    <h2>Create Profile</h2>
+    <div class="profile-pic">
+      <img id="profile-picture" src="https://via.placeholder.com/150" alt="Profile Picture">
+      <input type="file" id="profile-picture-input" accept="image/*">
+    </div>
+    <form id="profile-form">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="Enter your name">
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email">
+      </div>
+      <div class="form-group">
+        <label for="standard">Standard</label>
+        <input type="text" id="standard" name="standard" placeholder="Enter your standard">
+      </div>
+      <div class="form-group">
+        <label for="dob">Date of Birth</label>
+        <input type="date" id="dob" name="dob">
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
+      </div>
+    </form>
+
+    <br>
+    <br>
+  
+    <h2>Manage Skills</h2>
+    <br> <br>
+    <div id="add-skill-form">
+      <input type="text" id="skill-name" placeholder="Skill Name">
+      <select id="skill-level">
+        <option value="Beginner">Beginner</option>
+        <option value="Intermediate">Intermediate</option>
+        <option value="Expert">Expert</option>
+      </select>
+      <button id="add-skill">Add Skill</button>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th><input type="checkbox" id="select-all"></th>
+          <th>Skill Name</th>
+          <th>Proficiency Level</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="skills-table">
+        
+      </tbody>
+    </table>
+
+    <br>
+    
+    <button id="delete-selected" class="delete-button" style="display: none;">Delete Selected</button>
+  </div>
+  <br>
+
+  <footer>
+  Copyright Sakshi Kathane.  
+  <br> 
+  <br> <a href="mailto:Sakshikathane09@gmail.com" style="color: #5ff0e4;">Contact me at Sakshikathane09@gmail.com</a>
+  </footer>
+
+  <script>
+    const skills = [];
+    const skillsTable = document.getElementById('skills-table');
+    const deleteSelectedButton = document.getElementById('delete-selected');
+    const selectAllCheckbox = document.getElementById('select-all');
+
+    
+    const profilePictureInput = document.getElementById('profile-picture-input');
+    const profilePicture = document.getElementById('profile-picture');
+
+    profilePictureInput.addEventListener('change', (event) => {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          profilePicture.src = reader.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+
+    document.getElementById('add-skill').addEventListener('click', () => {
+      const skillName = document.getElementById('skill-name').value.trim();
+      const skillLevel = document.getElementById('skill-level').value;
+      if (skillName) {
+        skills.push({ name: skillName, level: skillLevel });
+        renderSkills();
+        document.getElementById('skill-name').value = '';
+      }
+    });
+
+    function renderSkills() {
+      skillsTable.innerHTML = '';
+      skills.forEach((skill, index) => {
+        const row = document.createElement('tr');
+
+        row.innerHTML = `
+          <td><input type="checkbox" data-index="${index}"></td>
+          <td><input type="text" value="${skill.name}" data-index="${index}" class="edit-skill-name"></td>
+          <td>
+            <select data-index="${index}" class="edit-skill-level">
+              <option value="Beginner" ${skill.level === 'Beginner' ? 'selected' : ''}>Beginner</option>
+              <option value="Intermediate" ${skill.level === 'Intermediate' ? 'selected' : ''}>Intermediate</option>
+              <option value="Expert" ${skill.level === 'Expert' ? 'selected' : ''}>Expert</option>
+            </select>
+          </td>
+          <td><button data-index="${index}" class="delete-skill">Delete</button></td>
+        `;
+
+        skillsTable.appendChild(row);
+      });
+
+      updateDeleteButtonVisibility();
+      handleCheckboxChange();
+    }
+
+    skillsTable.addEventListener('click', (e) => {
+      if (e.target.classList.contains('delete-skill')) {
+        const index = e.target.getAttribute('data-index');
+        skills.splice(index, 1);
+        renderSkills();
+      }
+    });
+
+    skillsTable.addEventListener('change', (e) => {
+      const index = e.target.getAttribute('data-index');
+      if (e.target.classList.contains('edit-skill-name')) {
+        skills[index].name = e.target.value;
+      }
+      if (e.target.classList.contains('edit-skill-level')) {
+        skills[index].level = e.target.value;
+      }
+    });
+
+ 
+    selectAllCheckbox.addEventListener('change', () => {
+      const checkboxes = document.querySelectorAll('#skills-table input[type="checkbox"]');
+      checkboxes.forEach((checkbox) => (checkbox.checked = selectAllCheckbox.checked));
+      updateDeleteButtonVisibility();
+    });
+
+   
+    function handleCheckboxChange() {
+      const checkboxes = document.querySelectorAll('#skills-table input[type="checkbox"]');
+      checkboxes.forEach((checkbox) => {
+        checkbox.addEventListener('change', updateDeleteButtonVisibility);
+      });
+    }
+
+    
+    function updateDeleteButtonVisibility() {
+      const checkedCount = document.querySelectorAll('#skills-table input[type="checkbox"]:checked').length;
+      deleteSelectedButton.style.display = checkedCount > 0 ? 'block' : 'none';
+    }
+
+  
+    deleteSelectedButton.addEventListener('click', () => {
+      const selectedCheckboxes = document.querySelectorAll('#skills-table input[type="checkbox"]:checked');
+      const indexesToDelete = Array.from(selectedCheckboxes).map((checkbox) =>
+        parseInt(checkbox.getAttribute('data-index'))
+      );
+      indexesToDelete.sort((a, b) => b - a).forEach((index) => skills.splice(index, 1));
+      renderSkills();
+    });
+  </script>
+</body>
+</html>

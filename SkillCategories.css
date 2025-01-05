@@ -1,0 +1,75 @@
+.skill-categories {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .skill-categories h3 {
+    text-align: center;
+  }
+  
+  .add-category,
+  .add-skill-to-category {
+    margin-bottom: 20px;
+  }
+  
+  .add-category input,
+  .add-skill-to-category input,
+  .add-skill-to-category select {
+    width: 75%;
+    padding: 8px;
+    margin-right: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .add-category button,
+  .add-skill-to-category button {
+    padding: 8px 12px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .add-category button:hover,
+  .add-skill-to-category button:hover {
+    background-color: #45a049;
+  }
+  
+  .category-card {
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    background-color: #f9f9f9;
+  }
+  
+  .category-card ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .category-card ul li {
+    margin: 5px 0;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .category-card ul li button {
+    padding: 5px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .category-card ul li button:hover {
+    background-color: #e53935;
+  }
+  

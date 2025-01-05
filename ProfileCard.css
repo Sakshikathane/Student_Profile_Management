@@ -1,0 +1,27 @@
+.profile-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 400px;
+    margin: 20px auto;
+  }
+  
+  .profile-card h3 {
+    margin-top: 0;
+  }
+  
+  .profile-card p {
+    margin: 5px 0;
+  }
+  
+  .profile-card ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .profile-card ul li {
+    padding: 5px 0;
+    border-bottom: 1px solid #ddd;
+  }
+  
