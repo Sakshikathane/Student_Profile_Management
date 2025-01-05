@@ -115,6 +115,8 @@ Add screenshots of the following:
 3. Profile card with uploaded profile picture.
 4. Multi-select functionality in action.
 
+![StudentProfile ](https://github.com/user-attachments/assets/ff759c3c-7da2-4184-a77f-29f56fd1e7b9)
+
 ---
 
 ## Contact:
