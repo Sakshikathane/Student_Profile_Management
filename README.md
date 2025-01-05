@@ -116,6 +116,7 @@ Add screenshots of the following:
 4. Multi-select functionality in action.
 
 ![StudentProfile ](https://github.com/user-attachments/assets/ff759c3c-7da2-4184-a77f-29f56fd1e7b9)
+![ManageSkills](https://github.com/user-attachments/assets/27178e32-9476-42b1-af35-8d447c8444de)
 
 ---
 
